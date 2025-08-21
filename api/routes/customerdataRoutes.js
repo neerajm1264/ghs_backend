@@ -17,10 +17,7 @@ router.post('/', async (req, res) => {
     } = req.body;
 
     const phoneStr = String(phone || "").trim();
-    if (!phoneStr) {
-      // You can change this if phone is optional in your flow
-      return res.status(400).json({ message: 'Phone is required' });
-    }
+   
 
     // Find existing customer
     let customer = await CustomerData.findOne({ phone: phoneStr });

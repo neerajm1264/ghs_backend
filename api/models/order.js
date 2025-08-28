@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
 
+
+const productSchema = new mongoose.Schema({
+  name: { type: String },
+  price: { type: Number },
+  quantity: { type: Number },
+  size: { type: String },
+  quantityType: { type: String, default: "kg" }, // <-- added
+});
+
 const orderSchema = new mongoose.Schema({
   id: { type: String },
   products: [{ name: String, price: Number, quantity: Number, size: String }],
@@ -19,7 +28,6 @@ const orderSchema = new mongoose.Schema({
   delivery: { type: Number, default: 0 },
   gstAmount: { type: Number, default: 0 },
   ComissionAmount: { type: Number, default: 0 },
-  quantityType: { type: String, default: "kg" },
 });
 
 const Order = mongoose.model("Order", orderSchema);

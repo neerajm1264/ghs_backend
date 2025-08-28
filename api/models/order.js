@@ -19,6 +19,7 @@ const orderSchema = new mongoose.Schema({
   delivery: { type: Number, default: 0 },
   gstAmount: { type: Number, default: 0 },
   ComissionAmount: { type: Number, default: 0 },
+  quantityType: { type: String, default: "kg" },
 });
 
 const Order = mongoose.model("Order", orderSchema);

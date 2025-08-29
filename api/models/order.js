@@ -20,6 +20,7 @@ const orderSchema = new mongoose.Schema({
   gstAmount: { type: Number, default: 0 },
   ComissionAmount: { type: Number, default: 0 },
   quantityType: { type: String, default: "kg" },
+  balanceAmount: { type: Number,},
 });
 
 const Order = mongoose.model("Order", orderSchema);

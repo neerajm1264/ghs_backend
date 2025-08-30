@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 
+const transactionSchema = new mongoose.Schema({
+  type: { type: String, enum: ["received", "gave"], required: true },
+  amount: { type: Number, required: true },
+  date: { type: Date, default: Date.now },
+});
+
 const customerdataSchema = new mongoose.Schema({
-  id: { type: String, required: true },
+  // id: { type: String, required: true },
   name: { type: String },
   phone: { type: String, unique: true, index: true }, // store as string
   address: { type: String },
@@ -10,9 +16,8 @@ const customerdataSchema = new mongoose.Schema({
   totalAmount: { type: Number, default: 0 },
   totalCash: { type: Number, default: 0 },
   totalOwed: { type: Number, default: 0 },
+  transactions: [transactionSchema],  
 
-  // track orders already applied to totals to avoid double increment
-  // processedOrders: { type: [String], default: [] },
 });
 
 const CustomerData = mongoose.model('customerdata', customerdataSchema);

@@ -17,7 +17,8 @@ const customerdataSchema = new mongoose.Schema({
   totalCash: { type: Number, default: 0 },
   totalOwed: { type: Number, default: 0 },
   transactions: [transactionSchema],  
-
+  lifetimeSale: { type: Number, default: 0 }, 
+  receivedAmount: { type: Number, default: 0 },
 });
 
 const CustomerData = mongoose.model('customerdata', customerdataSchema);

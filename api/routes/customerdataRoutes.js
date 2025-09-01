@@ -101,7 +101,7 @@ router.put("/:id", async (req, res) => {
       customer.receivedAmount += amount; // payment received
     }
 
-    customer.transactions.push({ type, amount });
+    customer.transactions.push({ type, amount, description });
     await customer.save();
     res.json(customer);
   } catch (err) {

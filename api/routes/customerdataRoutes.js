@@ -88,7 +88,7 @@ router.get("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { type, amount } = req.body;
+    const { type, amount, description } = req.body;
 
     const customer = await CustomerData.findById(id);
     if (!customer) {

@@ -110,4 +110,32 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Delete a specific transaction from a customer
+router.delete("/:customerId/transactions/:transactionId", async (req, res) => {
+  try {
+    const { customerId, transactionId } = req.params;
+    const customer = await CustomerData.findById(customerId);
+    if (!customer) return res.status(404).json({ message: "Customer not found" });
+
+    const transaction = customer.transactions.id(transactionId);
+    if (!transaction) return res.status(404).json({ message: "Transaction not found" });
+
+    // Adjust totals based on deleted transaction
+    if (transaction.type === "gave") {
+      customer.lifetimeSale -= transaction.amount;
+    } else if (transaction.type === "received") {
+      customer.receivedAmount -= transaction.amount;
+    }
+
+    // Remove the transaction
+    transaction.deleteOne();
+
+    await customer.save();
+    res.json({ message: "Transaction deleted successfully", customer });
+  } catch (err) {
+    console.error("Error deleting transaction:", err);
+    res.status(500).json({ message: "Failed to delete transaction", error: err.message });
+  }
+});
+
 module.exports = router;
